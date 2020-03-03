@@ -269,6 +269,13 @@ class RTTR_API property
          */
         void* get_object_pointer(instance& object) const;
 
+        /*!
+         * Returns void* pointer of the class field under given instance or nullptr if not possible.
+         *
+         * \return void* pointer of the class field under given instance or nullptr if not possible.
+         */
+        void* get_value_pointer(instance& object) const;
+
     private:
         //! Constructs a property from a property_wrapper_base.
         property(const detail::property_wrapper_base* wrapper) RTTR_NOEXCEPT;

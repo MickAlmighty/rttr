@@ -242,8 +242,18 @@ TEST_CASE("property - get_value_offset()", "[property]")
 TEST_CASE("property - get_object_pointer()", "[property]") {
     prop_misc_test test;
     instance inst = test;
-    CHECK(reinterpret_cast<uint8_t*>(type::get<prop_misc_test>().get_property("value_1").get_object_pointer(inst))
-          == reinterpret_cast<uint8_t*>(&test));
+    CHECK(type::get<prop_misc_test>().get_property("value_1").get_object_pointer(inst) == &test);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+TEST_CASE("property - get_value_pointer()", "[property]") {
+    prop_misc_test test;
+    instance inst = test;
+    CHECK(type::get<prop_misc_test>().get_property("value_1").get_value_pointer(inst) == &test.value_1);
+    CHECK(type::get<prop_misc_test>().get_property("value_2").get_value_pointer(inst) == &test.value_2);
+    CHECK(type::get<prop_misc_test>().get_property("color").get_value_pointer(inst) == &test.color_value);
+    CHECK(type::get<prop_misc_test>().get_property("list").get_value_pointer(inst) == &test.list);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////

@@ -184,6 +184,13 @@ void* property::get_object_pointer(instance& object) const
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
+void* property::get_value_pointer(instance& object) const
+{
+    return reinterpret_cast<uint8_t*>(get_object_pointer(object)) + get_value_offset();
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
 void property::visit(visitor& visitor) const RTTR_NOEXCEPT
 {
     m_wrapper->visit(visitor, property(*this));
