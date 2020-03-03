@@ -78,6 +78,22 @@ class property_wrapper<member_object_ptr, Declaring_Typ, A(C::*), void, Acc_Leve
             visitor_iterator<Visitor_List>::visit(visitor, make_property_visitor_invoker(obj));
         }
 
+        int get_value_offset() const override
+        {
+            // create a fake object instance and get the offset to actual field
+            int ret = -1;
+            C* ptr = reinterpret_cast<C*>(malloc(sizeof(C)));
+            ret = static_cast<int>(reinterpret_cast<uint8_t*>(&(ptr->*m_acc)) - reinterpret_cast<uint8_t*>(ptr));
+            free(ptr);
+            return ret;
+        }
+
+        void* get_object_pointer(instance& object) const override
+        {
+            // returns void* pointer under rttr::instance
+            return reinterpret_cast<void*>(object.try_convert<C>());
+        }
+
     private:
         accessor m_acc;
 };
@@ -127,6 +143,23 @@ class property_wrapper<member_object_ptr, Declaring_Typ, A(C::*), void, Acc_Leve
         {
             auto obj = make_property_info<Declaring_Typ, return_as_copy, accessor>(prop, m_acc);
             visitor_iterator<Visitor_List>::visit(visitor, make_property_visitor_invoker<read_only>(obj));
+        }
+
+        int get_value_offset() const override
+        {
+            // create a fake object instance and get the offset to actual field
+            int ret = -1;
+            C* ptr = reinterpret_cast<C*>(malloc(sizeof(C)));
+            // FIXME: C-style cast here due to reinterpret/const cast combination failing
+            ret = static_cast<int>((uint8_t*)(&(ptr->*m_acc)) - reinterpret_cast<uint8_t*>(ptr));
+            free(ptr);
+            return ret;
+        }
+
+        void* get_object_pointer(instance& object) const override
+        {
+            // returns void* pointer under rttr::instance
+            return reinterpret_cast<void*>(object.try_convert<C>());
         }
 
     private:
@@ -189,6 +222,22 @@ class property_wrapper<member_object_ptr, Declaring_Typ, A(C::*), void, Acc_Leve
             visitor_iterator<Visitor_List>::visit(visitor, make_property_visitor_invoker(obj));
         }
 
+        int get_value_offset() const override
+        {
+            // create a fake object instance and get the offset to actual field
+            int ret = -1;
+            C* ptr = reinterpret_cast<C*>(malloc(sizeof(C)));
+            ret = static_cast<int>(reinterpret_cast<uint8_t*>(&(ptr->*m_acc)) - reinterpret_cast<uint8_t*>(ptr));
+            free(ptr);
+            return ret;
+        }
+
+        void* get_object_pointer(instance& object) const override
+        {
+            // returns void* pointer under rttr::instance
+            return reinterpret_cast<void*>(object.try_convert<C>());
+        }
+
     private:
         accessor m_acc;
 };
@@ -238,6 +287,22 @@ class property_wrapper<member_object_ptr, Declaring_Typ, A(C::*), void, Acc_Leve
         {
             auto obj = make_property_info<Declaring_Typ, return_as_ptr, accessor>(prop, m_acc);
             visitor_iterator<Visitor_List>::visit(visitor, make_property_visitor_invoker<read_only>(obj));
+        }
+
+        int get_value_offset() const override
+        {
+            // create a fake object instance and get the offset to actual field
+            int ret = -1;
+            C* ptr = reinterpret_cast<C*>(malloc(sizeof(C)));
+            ret = static_cast<int>(reinterpret_cast<uint8_t*>(&(ptr->*m_acc)) - reinterpret_cast<uint8_t*>(ptr));
+            free(ptr);
+            return ret;
+        }
+
+        void* get_object_pointer(instance& object) const override
+        {
+            // returns void* pointer under rttr::instance
+            return reinterpret_cast<void*>(object.try_convert<C>());
         }
 
     private:
@@ -296,6 +361,22 @@ class property_wrapper<member_object_ptr, Declaring_Typ, A(C::*), void, Acc_Leve
             visitor_iterator<Visitor_List>::visit(visitor, make_property_visitor_invoker(obj));
         }
 
+        int get_value_offset() const override
+        {
+            // create a fake object instance and get the offset to actual field
+            int ret = -1;
+            C* ptr = reinterpret_cast<C*>(malloc(sizeof(C)));
+            ret = static_cast<int>(reinterpret_cast<uint8_t*>(&(ptr->*m_acc)) - reinterpret_cast<uint8_t*>(ptr));
+            free(ptr);
+            return ret;
+        }
+
+        void* get_object_pointer(instance& object) const override
+        {
+            // returns void* pointer under rttr::instance
+            return reinterpret_cast<void*>(object.try_convert<C>());
+        }
+
     private:
         accessor m_acc;
 };
@@ -345,6 +426,22 @@ class property_wrapper<member_object_ptr, Declaring_Typ, A(C::*), void, Acc_Leve
         {
             auto obj = make_property_info<Declaring_Typ, get_as_ref_wrapper, accessor>(prop, m_acc);
             visitor_iterator<Visitor_List>::visit(visitor, make_property_visitor_invoker<read_only>(obj));
+        }
+
+        int get_value_offset() const override
+        {
+            // create a fake object instance and get the offset to actual field
+            int ret = -1;
+            C* ptr = reinterpret_cast<C*>(malloc(sizeof(C)));
+            ret = static_cast<int>(reinterpret_cast<uint8_t*>(&(ptr->*m_acc)) - reinterpret_cast<uint8_t*>(ptr));
+            free(ptr);
+            return ret;
+        }
+
+        void* get_object_pointer(instance& object) const override
+        {
+            // returns void* pointer under rttr::instance
+            return reinterpret_cast<void*>(object.try_convert<C>());
         }
 
     private:

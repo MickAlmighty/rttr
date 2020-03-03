@@ -255,6 +255,20 @@ class RTTR_API property
          */
         bool operator!=(const property& other) const RTTR_NOEXCEPT;
 
+        /*!
+         * Returns byte offset from the object pointer to the class field or -1 if not possible.
+         *
+         * \return Byte offset of the class field or -1 if not possible.
+         */
+        int get_value_offset() const;
+
+        /*!
+         * Returns void* pointer under given instance or nullptr if not possible.
+         *
+         * \return void* pointer under given instance or nullptr if not possible.
+         */
+        void* get_object_pointer(instance& object) const;
+
     private:
         //! Constructs a property from a property_wrapper_base.
         property(const detail::property_wrapper_base* wrapper) RTTR_NOEXCEPT;

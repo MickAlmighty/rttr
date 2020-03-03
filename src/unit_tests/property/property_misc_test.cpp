@@ -224,3 +224,26 @@ TEST_CASE("property - compare operators()", "[property]")
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
+
+TEST_CASE("property - get_value_offset()", "[property]")
+{
+    property prop = type::get<prop_misc_test>().get_property("value_1");
+    CHECK(prop.get_value_offset() == offsetof(prop_misc_test, value_1));
+    prop = type::get<prop_misc_test>().get_property("value_2");
+    CHECK(prop.get_value_offset() == offsetof(prop_misc_test, value_2));
+    prop = type::get<prop_misc_test>().get_property("color");
+    CHECK(prop.get_value_offset() == offsetof(prop_misc_test, color_value));
+    prop = type::get<prop_misc_test>().get_property("list");
+    CHECK(prop.get_value_offset() == offsetof(prop_misc_test, list));
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+TEST_CASE("property - get_object_pointer()", "[property]") {
+    prop_misc_test test;
+    instance inst = test;
+    CHECK(reinterpret_cast<uint8_t*>(type::get<prop_misc_test>().get_property("value_1").get_object_pointer(inst))
+          == reinterpret_cast<uint8_t*>(&test));
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////

@@ -80,6 +80,10 @@ class RTTR_API property_wrapper_base
 
         virtual void visit(visitor& visitor, property prop) const RTTR_NOEXCEPT;
 
+        virtual int get_value_offset() const;
+
+        virtual void* get_object_pointer(instance& object) const;
+
     protected:
         void init() RTTR_NOEXCEPT;
 

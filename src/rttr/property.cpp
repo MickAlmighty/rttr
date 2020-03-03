@@ -170,6 +170,20 @@ bool property::operator!=(const property& other) const RTTR_NOEXCEPT
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
+int property::get_value_offset() const
+{
+    return m_wrapper->get_value_offset();
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+void* property::get_object_pointer(instance& object) const
+{
+    return m_wrapper->get_object_pointer(object);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
 void property::visit(visitor& visitor) const RTTR_NOEXCEPT
 {
     m_wrapper->visit(visitor, property(*this));
