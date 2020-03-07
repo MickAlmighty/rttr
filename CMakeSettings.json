@@ -15,6 +15,26 @@
                     "name": "BUILD_EXAMPLES",
                     "value": "True",
                     "type": "BOOL"
+                },
+                {
+                    "name": "BUILD_DOCUMENTATION",
+                    "value": "True",
+                    "type": "BOOL"
+                },
+                {
+                    "name": "BUILD_RTTR_DYNAMIC",
+                    "value": "True",
+                    "type": "BOOL"
+                },
+                {
+                    "name": "BUILD_STATIC",
+                    "value": "False",
+                    "type": "BOOL"
+                },
+                {
+                    "name": "BUILD_UNIT_TESTS",
+                    "value": "True",
+                    "type": "BOOL"
                 }
             ]
         },
@@ -28,7 +48,33 @@
             "buildCommandArgs": "-v",
             "ctestCommandArgs": "",
             "inheritEnvironments": [ "msvc_x64_x64" ],
-            "variables": []
+            "variables": [
+                {
+                    "name": "BUILD_RTTR_DYNAMIC",
+                    "value": "True",
+                    "type": "BOOL"
+                },
+                {
+                    "name": "BUILD_STATIC",
+                    "value": "False",
+                    "type": "BOOL"
+                },
+                {
+                    "name": "BUILD_EXAMPLES",
+                    "value": "True",
+                    "type": "BOOL"
+                },
+                {
+                    "name": "BUILD_DOCUMENTATION",
+                    "value": "True",
+                    "type": "BOOL"
+                },
+                {
+                    "name": "BUILD_UNIT_TESTS",
+                    "value": "True",
+                    "type": "BOOL"
+                }
+            ]
         }
     ]
 }
