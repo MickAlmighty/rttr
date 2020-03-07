@@ -153,6 +153,23 @@ type type::get_derived_type(void* ptr, const type& source_type) RTTR_NOEXCEPT
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
+bool type::is_shared_ptr() const RTTR_NOEXCEPT
+{
+    if(!is_wrapper() || !get_wrapped_type().is_pointer())
+    {
+        return false;
+    }
+    const char* prefix = "classstd::shared_ptr<";
+    string_view name = get_name();
+    if(!strcmp(prefix, name.cbegin()))
+    {
+        return false;
+    }
+    return name.back() == '>';
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
 array_range<type> type::get_base_classes() const RTTR_NOEXCEPT
 {
     return array_range<type>(m_type_data->m_class_data.m_base_types.data(),

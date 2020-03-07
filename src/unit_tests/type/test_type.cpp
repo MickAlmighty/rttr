@@ -636,5 +636,34 @@ TEST_CASE("Test rttr::type - get_metadata()", "[type]")
     CHECK(t.get_metadata("novalid key").is_valid() == false);
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
+
+TEST_CASE("Test rttr::type - is_shared_ptr()", "type") {
+    SECTION("valid")
+    {
+        CHECK(type::get<std::shared_ptr<type_metadata_test>>().is_shared_ptr() == true);
+        CHECK(type::get<std::shared_ptr<string_view>>().is_shared_ptr() == true);
+    }
+    SECTION("invalid")
+    {
+        CHECK(type::get<type_metadata_test>().is_shared_ptr() == false);
+        CHECK(type::get<string_view>().is_shared_ptr() == false);
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+TEST_CASE("Test rttr::type - empty shared_ptr constructible from nullptr", "type")
+{
+    const type shared_type = type::get<std::shared_ptr<type_metadata_test>>();
+    variant nullVar = nullptr;
+    CHECK(nullVar.get_type() == type::get<nullptr_t>());
+    CHECK(nullVar.can_convert<std::shared_ptr<type_metadata_test>>() == true);
+    bool convOk = nullVar.convert(shared_type);
+    CHECK(convOk == true);
+    CHECK(nullVar.is_valid() == true);
+    CHECK(nullVar.get_type() == shared_type);
+    CHECK(nullVar.get_value<std::shared_ptr<type_metadata_test>>().get() == nullptr);
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////
