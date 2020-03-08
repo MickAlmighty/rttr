@@ -315,6 +315,7 @@ create_or_get_type() RTTR_NOEXCEPT
                 ok = true;
                 return T();
             });
+            type::register_wrapper_converter_for_base_classes<T>();
         }
     }
     return val;
@@ -350,6 +351,7 @@ create_or_get_type() RTTR_NOEXCEPT
                 ok = true;
                 return T();
             });
+            type::register_wrapper_converter_for_base_classes<T>();
         }
     }
     return val;

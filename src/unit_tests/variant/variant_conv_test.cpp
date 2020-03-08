@@ -810,7 +810,8 @@ TEST_CASE("variant test - convert from enum", "[variant]")
 TEST_CASE("variant test - register_wrapper_converter_for_base_classes<std::shared_ptr<T>>", "[variant]")
 {
     variant var = std::make_shared<derived>();
-    CHECK(var.convert(type::get<std::shared_ptr<base>>())           == false);
+    //CHECK(var.convert(type::get<std::shared_ptr<base>>())           == false);
+    // right now it's applied automatically upon type registration
 
     type::register_wrapper_converter_for_base_classes<std::shared_ptr<derived>>();
 
