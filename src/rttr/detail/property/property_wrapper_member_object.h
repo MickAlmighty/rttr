@@ -47,15 +47,15 @@ class property_wrapper<member_object_ptr, Declaring_Typ, A(C::*), void, Acc_Leve
             init();
         }
 
-        access_levels get_access_level() const RTTR_NOEXCEPT    { return Acc_Level; }
-        bool is_valid()     const RTTR_NOEXCEPT                 { return true;  }
-        bool is_readonly()  const RTTR_NOEXCEPT                 { return false; }
-        bool is_static()    const RTTR_NOEXCEPT                 { return false; }
-        type get_type()     const RTTR_NOEXCEPT                 { return type::get<A>(); }
+        access_levels get_access_level() const RTTR_NOEXCEPT override { return Acc_Level; }
+        bool is_valid()     const RTTR_NOEXCEPT override              { return true;  }
+        bool is_readonly()  const RTTR_NOEXCEPT override              { return false; }
+        bool is_static()    const RTTR_NOEXCEPT override              { return false; }
+        type get_type()     const RTTR_NOEXCEPT override              { return type::get<A>(); }
 
-        variant get_metadata(const variant& key) const { return metadata_handler<Metadata_Count>::get_metadata(key); }
+        variant get_metadata(const variant& key) const override { return metadata_handler<Metadata_Count>::get_metadata(key); }
 
-        bool set_value(instance& object, argument& arg) const
+        bool set_value(instance& object, argument& arg) const override
         {
             C* ptr = object.try_convert<C>();
             if (ptr && arg.is_type<A>())
@@ -64,7 +64,7 @@ class property_wrapper<member_object_ptr, Declaring_Typ, A(C::*), void, Acc_Leve
                 return false;
         }
 
-        variant get_value(instance& object) const
+        variant get_value(instance& object) const override
         {
             if (C* ptr = object.try_convert<C>())
                 return variant((ptr->*m_acc));
@@ -72,7 +72,7 @@ class property_wrapper<member_object_ptr, Declaring_Typ, A(C::*), void, Acc_Leve
                 return variant();
         }
 
-        void visit(visitor& visitor, property prop) const RTTR_NOEXCEPT
+        void visit(visitor& visitor, property prop) const RTTR_NOEXCEPT override
         {
             auto obj = make_property_info<Declaring_Typ, return_as_copy, accessor>(prop, m_acc);
             visitor_iterator<Visitor_List>::visit(visitor, make_property_visitor_invoker(obj));
