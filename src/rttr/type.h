@@ -1111,12 +1111,12 @@ class RTTR_API type
         template<typename T>
         static void register_less_than_comparator();
 
-    private:
-
         /*!
          * Constructs an empty and invalid type object.
          */
         type() RTTR_NOEXCEPT;
+
+    private:
 
         /*!
          * \brief Constructs a valid type object.
